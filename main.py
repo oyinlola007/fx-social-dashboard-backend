@@ -3,11 +3,12 @@ import cogs.db as db
 
 from flask import Flask
 from flask_cors import CORS, cross_origin
+from flask_ngrok import run_with_ngrok
 
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}}, methods=['GET', 'POST', 'DELETE', 'PUT'])
-
+run_with_ngrok(app)
 
 @app.route("/api/v1/paid_affiliates",methods=['GET'])
 def get_affiliate_paid():
@@ -36,4 +37,4 @@ def get_leaderboard():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=3000, debug=True)
+    app.run()
