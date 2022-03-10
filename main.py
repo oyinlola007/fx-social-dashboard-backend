@@ -36,5 +36,10 @@ def get_leaderboard():
     return {'data' : data}, 200
 
 
+@app.route("/api/v1/get_invites",methods=['GET'])
+def get_invites():
+    data = db.get_invites()
+    return {'data' : data}, 200
+
 if __name__ == '__main__':
     app.run()

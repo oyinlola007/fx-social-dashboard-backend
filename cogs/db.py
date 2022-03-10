@@ -84,3 +84,23 @@ def get_leaderboard():
         data["avatar_url"] = row[3]
         json_list.append(data)
     return json_list
+
+def get_invites():
+    ll = conn.execute(f"SELECT a.invitee, a.inviter, a.sub_status, a.time_stamp, b.username, b.avatar_url, c.username, c.avatar_url from INVITES as a INNER JOIN USER_DETAILS as b on a.invitee = b.discord_id INNER JOIN USER_DETAILS as c on a.inviter = c.discord_id ORDER BY a.TIME_STAMP DESC")
+    json_list = []
+    for row in ll:
+        data = {}
+        data["invitee_id"] = row[0]
+        data["invitee_name"] = row[4]
+        data["invitee_avatar_url"] = row[5]
+        data["inviter_id"] = row[1]
+        data["inviter_name"] = row[6]
+        data["inviter_avatar_url"] = row[7]
+        if row[2] == "0":
+            data["sub_status"] = "Not Subscribed"
+        else:
+            data["sub_status"] = "Subscribed"
+        data["date_joined"] = row[3]
+        json_list.append(data)
+    return json_list
+
